@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="Lab_4_styles.css">
+    <title>Lab 4</title>
+</head>
+<body>
+<a href="../index.html">Back to main page</a>
+
+<svg width="0" height="0" viewBox="0 0 32 32">
+    <defs>
+        <!-- Маска, которая будет закрывать часть звезды -->
+        <mask id="half">
+            <rect x="0" y="0" width="32" height="32" fill="black" />
+            <rect x="50%" y="0" width="32" height="32" fill="white" />
+        </mask>
+        <!-- Фигура звезды -->
+        <symbol viewBox="0 0 32 32" id="star" stroke="orange">
+            <path d="M31.547 12a.848.848 0 00-.677-.577l-9.427-1.376-4.224-8.532a.847.847 0 00-1.516 0l-4.218 8.534-9.427 1.355a.847.847 0 00-.467 1.467l6.823 6.664-1.612 9.375a.847.847 0 001.23.893l8.428-4.434 8.432 4.432a.847.847 0 001.229-.894l-1.615-9.373 6.822-6.665a.845.845 0 00.214-.869z" />
+        </symbol>
+    </defs>
+</svg>
+
+<header>
+    <h1>Лабораторная работа 4</h1>
+</header>
+<input type="checkbox" id="checkbox-type-list">
+<label for="checkbox-type-list" id="label-checkbox-type-list">
+    <svg class="svg-column" focusable="false" viewBox="0 0 512 512" aria-hidden="true"><path d="M149.333 56v80c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V56c0-13.255 10.745-24 24-24h101.333c13.255 0 24 10.745 24 24zm181.334 240v-80c0-13.255-10.745-24-24-24H205.333c-13.255 0-24 10.745-24 24v80c0 13.255 10.745 24 24 24h101.333c13.256 0 24.001-10.745 24.001-24zm32-240v80c0 13.255 10.745 24 24 24H488c13.255 0 24-10.745 24-24V56c0-13.255-10.745-24-24-24H386.667c-13.255 0-24 10.745-24 24zm-32 80V56c0-13.255-10.745-24-24-24H205.333c-13.255 0-24 10.745-24 24v80c0 13.255 10.745 24 24 24h101.333c13.256 0 24.001-10.745 24.001-24zm-205.334 56H24c-13.255 0-24 10.745-24 24v80c0 13.255 10.745 24 24 24h101.333c13.255 0 24-10.745 24-24v-80c0-13.255-10.745-24-24-24zM0 376v80c0 13.255 10.745 24 24 24h101.333c13.255 0 24-10.745 24-24v-80c0-13.255-10.745-24-24-24H24c-13.255 0-24 10.745-24 24zm386.667-56H488c13.255 0 24-10.745 24-24v-80c0-13.255-10.745-24-24-24H386.667c-13.255 0-24 10.745-24 24v80c0 13.255 10.745 24 24 24zm0 160H488c13.255 0 24-10.745 24-24v-80c0-13.255-10.745-24-24-24H386.667c-13.255 0-24 10.745-24 24v80c0 13.255 10.745 24 24 24zM181.333 376v80c0 13.255 10.745 24 24 24h101.333c13.255 0 24-10.745 24-24v-80c0-13.255-10.745-24-24-24H205.333c-13.255 0-24 10.745-24 24z"></path></svg>
+    <svg class="svg-line" focusable="false" viewBox="0 0 448 512" aria-hidden="true"><path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path></svg>
+</label>
+<main class="content">
+    <div class="product-card">
+        <div class="product-card__img">
+            <img src="https://m.media-amazon.com/images/I/51ALH4nJNyL.jpg" alt="">
+        </div>
+        <div class="product-card__wrapper">
+            <div class="product-card__info">
+                <div class="product-card__title"><a href="#">ESP32</a></div>
+                <div class="product-card__category">Интегральные схемы</div>
+                <div class="product-card__price">384,87₱</div>
+                <div class="product-card__rating">
+                    <div class="product-card__rating_wrap">
+                        <input type="radio" name="r1" id="1-r-10" value="10">
+                        <label class="star full" for="1-r-10"></label>
+                        <input type="radio" name="r1" id="1-r-9" value="9">
+                        <label class="star half" for="1-r-9"></label>
+                        <input type="radio" name="r1" id="1-r-8" value="8">
+                        <label class="star full" for="1-r-8"></label>
+                        <input type="radio" name="r1" id="1-r-7" value="7">
+                        <label class="star half" for="1-r-7"></label>
+                        <input type="radio" name="r1" id="1-r-6" value="6">
+                        <label class="star full" for="1-r-6"></label>
+                        <input type="radio" name="r1" id="1-r-5" value="5">
+                        <label class="star half" for="1-r-5"></label>
+                        <input type="radio" name="r1" id="1-r-4" value="4">
+                        <label class="star full" for="1-r-4"></label>
+                        <input type="radio" name="r1" id="1-r-3" value="3">
+                        <label class="star half" for="1-r-3"></label>
+                        <input type="radio" name="r1" id="1-r-2" value="2">
+                        <label class="star full" for="1-r-2"></label>
+                        <input type="radio" name="r1" id="1-r-1" value="1">
+                        <label class="star half" for="1-r-1"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card__description">
+                <p>
+                    Макетная плата ESP32, Wi-Fi + Bluetooth, сверхнизкое энергопотребление, два ядра, ESP-32 ESP 32, аналогична ESP8266 для arduino
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="product-card">
+        <div class="product-card__img">
+            <img src="https://ae04.alicdn.com/kf/H6ad1b22b3b1e401a84ab3a1b4cb6a410P/ATmega2560-16AU-TZT-Mega2560-PRO-MINI-5-CH340G.jpg" alt="">
+        </div>
+        <div class="product-card__wrapper">
+            <div class="product-card__info">
+                <div class="product-card__title"><a href="#">ATMEGA2560</a></div>
+                <div class="product-card__category">Интегральные схемы</div>
+                <div class="product-card__price">483,53₱</div>
+                <div class="product-card__rating">
+                    <div class="product-card__rating_wrap">
+                        <input type="radio" name="r2" id="2-r-10" value="10">
+                        <label class="star full" for="2-r-10"></label>
+                        <input type="radio" name="r2" id="2-r-9" value="9">
+                        <label class="star half" for="2-r-9"></label>
+                        <input type="radio" name="r2" id="2-r-8" value="8">
+                        <label class="star full" for="2-r-8"></label>
+                        <input type="radio" name="r2" id="2-r-7" value="7">
+                        <label class="star half" for="2-r-7"></label>
+                        <input type="radio" name="r2" id="2-r-6" value="6">
+                        <label class="star full" for="2-r-6"></label>
+                        <input type="radio" name="r2" id="2-r-5" value="5">
+                        <label class="star half" for="2-r-5"></label>
+                        <input type="radio" name="r2" id="2-r-4" value="4">
+                        <label class="star full" for="2-r-4"></label>
+                        <input type="radio" name="r2" id="2-r-3" value="3">
+                        <label class="star half" for="2-r-3"></label>
+                        <input type="radio" name="r2" id="2-r-2" value="2">
+                        <label class="star full" for="2-r-2"></label>
+                        <input type="radio" name="r2" id="2-r-1" value="1">
+                        <label class="star half" for="2-r-1"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card__description">
+                <p>
+                    Встроенная ATmega2560-16AU TZT Mega2560 PRO MINI 5В CH340G с штыревыми разъемами, совместимая с arduino Mega 2560
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="product-card">
+        <div class="product-card__img">
+            <img src="https://ae04.alicdn.com/kf/H247743f138bb4a6f86dc029f1297697aG/1-UNO-R3-MEGA328P-830.jpg" alt="">
+        </div>
+        <div class="product-card__wrapper">
+            <div class="product-card__info">
+                <div class="product-card__title"><a href="#">Ардуино</a></div>
+                <div class="product-card__category">Детали для 3D-принтера</div>
+                <div class="product-card__price">701,85₱</div>
+                <div class="product-card__rating">
+                    <div class="product-card__rating_wrap">
+                        <input type="radio" name="r3" id="3-r-10" value="10">
+                        <label class="star full" for="3-r-10"></label>
+                        <input type="radio" name="r3" id="3-r-9" value="9">
+                        <label class="star half" for="3-r-9"></label>
+                        <input type="radio" name="r3" id="3-r-8" value="8">
+                        <label class="star full" for="3-r-8"></label>
+                        <input type="radio" name="r3" id="3-r-7" value="7">
+                        <label class="star half" for="3-r-7"></label>
+                        <input type="radio" name="r3" id="3-r-6" value="6">
+                        <label class="star full" for="3-r-6"></label>
+                        <input type="radio" name="r3" id="3-r-5" value="5">
+                        <label class="star half" for="3-r-5"></label>
+                        <input type="radio" name="r3" id="3-r-4" value="4">
+                        <label class="star full" for="3-r-4"></label>
+                        <input type="radio" name="r3" id="3-r-3" value="3">
+                        <label class="star half" for="3-r-3"></label>
+                        <input type="radio" name="r3" id="3-r-2" value="2">
+                        <label class="star full" for="3-r-2"></label>
+                        <input type="radio" name="r3" id="3-r-1" value="1">
+                        <label class="star half" for="3-r-1"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card__description">
+                <p>
+                  1 комплект, макетная плата UNO R3 MEGA328P + 830 отверстий
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="product-card">
+        <div class="product-card__img">
+            <img src="https://ae04.alicdn.com/kf/H7ae0d9c1d7f946fc8a80b6e77bbc4664T/ESP01-UART-GPIO0-ESP-01-ESP8266-CH340G-USB.jpg" alt="">
+        </div>
+        <div class="product-card__wrapper">
+            <div class="product-card__info">
+                <div class="product-card__title"><a href="#">UART GPIO0 ESP-01 USB</a></div>
+                <div class="product-card__category">Программатор</div>
+                <div class="product-card__price">49,68₱</div>
+                <div class="product-card__rating">
+                    <div class="product-card__rating_wrap">
+                        <input type="radio" name="r4" id="4-r-10" value="10">
+                        <label class="star full" for="4-r-10"></label>
+                        <input type="radio" name="r4" id="4-r-9" value="9">
+                        <label class="star half" for="4-r-9"></label>
+                        <input type="radio" name="r4" id="4-r-8" value="8">
+                        <label class="star full" for="4-r-8"></label>
+                        <input type="radio" name="r4" id="4-r-7" value="7">
+                        <label class="star half" for="4-r-7"></label>
+                        <input type="radio" name="r4" id="4-r-6" value="6">
+                        <label class="star full" for="4-r-6"></label>
+                        <input type="radio" name="r4" id="4-r-5" value="5">
+                        <label class="star half" for="4-r-5"></label>
+                        <input type="radio" name="r4" id="4-r-4" value="4">
+                        <label class="star full" for="4-r-4"></label>
+                        <input type="radio" name="r4" id="4-r-3" value="3">
+                        <label class="star half" for="4-r-3"></label>
+                        <input type="radio" name="r4" id="4-r-2" value="2">
+                        <label class="star full" for="4-r-2"></label>
+                        <input type="radio" name="r4" id="4-r-1" value="1">
+                        <label class="star half" for="4-r-1"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card__description">
+                <p>
+                    Адаптер программатора ESP01 UART GPIO0 ESP-01, адаптер ESP8266 CH340G, USB к ESP8266, последовательный беспроводной модуль разработки Wi-Fi
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="product-card">
+        <div class="product-card__img">
+            <img src="https://ae04.alicdn.com/kf/H96e75096267f447688fdb7226ab6ef10I/TZT-5-12-1-2-4-6-8.jpg" alt="">
+        </div>
+        <div class="product-card__wrapper">
+            <div class="product-card__info">
+                <div class="product-card__title"><a href="#">TZT 5</a></div>
+                <div class="product-card__category">Реле</div>
+                <div class="product-card__price">53,88₱</div>
+                <div class="product-card__rating">
+                    <div class="product-card__rating_wrap">
+                        <input type="radio" name="r5" id="5-r-10" value="10">
+                        <label class="star full" for="5-r-10"></label>
+                        <input type="radio" name="r5" id="5-r-9" value="9">
+                        <label class="star half" for="5-r-9"></label>
+                        <input type="radio" name="r5" id="5-r-8" value="8">
+                        <label class="star full" for="5-r-8"></label>
+                        <input type="radio" name="r5" id="5-r-7" value="7">
+                        <label class="star half" for="5-r-7"></label>
+                        <input type="radio" name="r5" id="5-r-6" value="6">
+                        <label class="star full" for="5-r-6"></label>
+                        <input type="radio" name="r5" id="5-r-5" value="5">
+                        <label class="star half" for="5-r-5"></label>
+                        <input type="radio" name="r5" id="5-r-4" value="4">
+                        <label class="star full" for="5-r-4"></label>
+                        <input type="radio" name="r5" id="5-r-3" value="3">
+                        <label class="star half" for="5-r-3"></label>
+                        <input type="radio" name="r5" id="5-r-2" value="2">
+                        <label class="star full" for="5-r-2"></label>
+                        <input type="radio" name="r5" id="5-r-1" value="1">
+                        <label class="star half" for="5-r-1"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card__description">
+                <p>
+                    Релейный модуль TZT 5 в 12 в 1 2 4 6 8 каналов с оптроном, релейный выход 1 2 4 6 8, релейный модуль для Arduino в наличии
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="product-card">
+        <div class="product-card__img">
+            <img src="https://ae04.alicdn.com/kf/Hf1d7809bae034537a6d3dc823ccf9fd3N/360.jpg" alt="">
+        </div>
+        <div class="product-card__wrapper">
+            <div class="product-card__info">
+                <div class="product-card__title"><a href="#">KY-040 RV09</a></div>
+                <div class="product-card__category">Энкодеры</div>
+                <div class="product-card__price">44,78₱</div>
+                <div class="product-card__rating">
+                    <div class="product-card__rating_wrap">
+                        <input type="radio" name="r6" id="6-r-10" value="10">
+                        <label class="star full" for="6-r-10"></label>
+                        <input type="radio" name="r6" id="6-r-9" value="9">
+                        <label class="star half" for="6-r-9"></label>
+                        <input type="radio" name="r6" id="6-r-8" value="8">
+                        <label class="star full" for="6-r-8"></label>
+                        <input type="radio" name="r6" id="6-r-7" value="7">
+                        <label class="star half" for="6-r-7"></label>
+                        <input type="radio" name="r6" id="6-r-6" value="6">
+                        <label class="star full" for="6-r-6"></label>
+                        <input type="radio" name="r6" id="6-r-5" value="5">
+                        <label class="star half" for="6-r-5"></label>
+                        <input type="radio" name="r6" id="6-r-4" value="4">
+                        <label class="star full" for="6-r-4"></label>
+                        <input type="radio" name="r6" id="6-r-3" value="3">
+                        <label class="star half" for="6-r-3"></label>
+                        <input type="radio" name="r6" id="6-r-2" value="2">
+                        <label class="star full" for="6-r-2"></label>
+                        <input type="radio" name="r6" id="6-r-1" value="1">
+                        <label class="star half" for="6-r-1"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card__description">
+                <p>
+                    Модуль энкодера с поворотом на 360 градусов, поворотный потенциометр, модуль аналоговой ручки для Arduino KY-040 RV09, поворотный энкодер EC11, крышка ручки
+                </p>
+            </div>
+        </div>
+    </div>
+</main>
+<footer></footer>
+</body>
+</html>

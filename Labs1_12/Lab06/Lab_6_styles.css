@@ -1,0 +1,293 @@
+body{
+    margin: 0 20px;
+    background-color: aliceblue;
+}
+.main-wrapper{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+main{
+    flex-grow: 1;
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+
+}
+main > section {
+    flex-grow: 1;
+}
+/**/
+main .category{
+    flex-basis: 160px;
+    background-color: lightgray;
+    display: flex;
+    flex-direction: column;
+}
+
+main input[name="category"] {
+    display: none;
+}
+main .category label {
+    padding: 15px;
+    text-align: center;
+    border-bottom: solid 2px white;
+    color: black;
+    font-size: 1.2em;
+}
+main .category label:hover{
+    cursor: pointer;
+    background-color: darkgray;
+}
+main .category input:checked + label{
+    background-color: darkgray;
+}
+
+
+#c-esp:checked ~ .items > div:not(.esp){
+    opacity: 0.2;
+}
+#c-arduino:checked ~ .items > div:not(.arduino){
+    opacity: 0.2;
+}
+#c-details:checked ~ .items > div:not(.details){
+    opacity: 0.2;
+}
+#c-computers:checked ~ .items > div:not(.computers){
+    opacity: 0.2;
+}
+
+
+
+/**/
+main .items{
+    flex-grow: 2;
+    display: flex;
+    flex-basis: 50%;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+main .items > div{
+    background-color: red;
+}
+main .items > div img{
+    width: 100%;
+    height: 100%;
+}
+main .items > div p{
+    display: none;
+    position: absolute;
+    background-color: black;
+    opacity: 0.6;
+    color: white;
+    padding: 20px;
+    border-radius: 5px;
+}
+main .items > div:hover p{
+    display: block;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+#c-esp:checked ~ .items > div:not(.esp):hover p{
+    display:none;
+}
+#c-details:checked ~ .items > div:not(.details):hover p{
+    display:none;
+}
+#c-arduino:checked ~ .items > div:not(.arduino):hover p{
+    display:none;
+}
+#c-computers:checked ~ .items > div:not(.computers):hover p{
+    display:none;
+}
+main .items > div:nth-child(8n-7){
+    background-color: #1d7fbb;
+    flex-basis: calc(33.3% - 7px);
+
+}
+main .items > div:nth-child(8n-6){
+    background-color: #721c24;
+    flex-basis: calc(66.6% - 3px);
+
+}
+
+
+
+main .items > div:nth-child(8n-5){
+    background-color: #a18e6e;
+    flex-basis: calc(33.3% - 7px);
+}
+main .items > div:nth-child(8n-4){
+    background-color: #FFB300;
+    flex-basis: calc(33.3% - 7px);
+}
+main .items > div:nth-child(8n-3){
+    background-color: green;
+    flex-basis: calc(33.3% - 6px);
+}
+
+
+main .items > div:nth-child(8n-2){
+    background-color: aqua;
+    flex-basis: calc(66.6% - 3px);
+
+}
+main .items > div:nth-child(8n-1){
+    background-color: aquamarine;
+    flex-basis: calc(33.3% - 7px);
+}
+
+
+main .items > div:nth-child(8n){
+    background-color: blueviolet;
+    flex-basis: 100%;
+}
+
+
+main .items > div img{
+    /*width: max-content;*/
+
+}
+/**/
+main .rating{
+    flex-basis: 200px;
+    background-color: lightgray;
+    align-self: flex-start;
+    padding: 40px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.1em;
+}
+main .rating h1{
+    text-align: center;
+}
+main .rating .rating-list {
+    display: flex;
+    flex-direction: column;
+}
+main .rating .rating-list input {
+    display: none;
+}
+main .rating .rating-list .rating-item {
+    margin-top: 1.05em;
+    padding-right: 40px;
+}
+main .rating .rating-list .rating-item span {
+    font-size: 1.1em;
+}
+main .rating .rating-list .rating-item .scale{
+    width: 200px;
+    height: 20px;
+    background-color: black;
+    border: solid 2px white;
+    margin-top: 6px;
+}
+main .rating .rating-list .rating-item .scale::after{
+    font-size: 1.2em;
+    font-weight: bold;
+    color: white;
+    margin-left: 200px;
+}
+/* Цвет + Размер рейтинга*/
+
+main .rating .rating-list input[value="1"] + div .scale{
+    background-color: #f00;
+    width: 20px;
+}
+main .rating .rating-list input[value="1"] + div .scale::after{
+    content: '1';
+    color: #f00;
+}
+
+main .rating .rating-list input[value="2"] + div .scale{
+    background-color: #ff00c8;
+    width: 40px;
+}
+main .rating .rating-list input[value="2"] + div .scale::after{
+    content: '2';
+    color: #ff00c8;
+}
+
+main .rating .rating-list input[value="3"] + div .scale{
+    background-color: #b0f;
+    width: 60px;
+}
+main .rating .rating-list input[value="3"] + div .scale::after{
+    content: '3';
+    color: #b0f;
+}
+
+
+main .rating .rating-list input[value="4"] + div .scale{
+    background-color: #30f;
+    width: 80px;
+}
+main .rating .rating-list input[value="4"] + div .scale::after{
+    content: '4';
+    color: #30f;
+}
+
+main .rating .rating-list input[value="5"] + div .scale{
+    background-color: #00c4ff;
+    width: 100px;
+}
+main .rating .rating-list input[value="5"] + div .scale::after{
+    content: '5';
+    color: #00c4ff;
+}
+
+main .rating .rating-list input[value="6"] + div .scale{
+    background-color: #00ffc4;
+    width: 120px;
+}
+main .rating .rating-list input[value="6"] + div .scale::after{
+    content: '6';
+    color: #00ffc4;
+}
+
+main .rating .rating-list input[value="7"] + div .scale{
+    background-color: #00ff37;
+    width: 140px;
+}
+main .rating .rating-list input[value="7"] + div .scale::after{
+    content: '7';
+    color: #00ff37;
+}
+
+main .rating .rating-list input[value="8"] + div .scale{
+    background-color: #698f00;
+    width: 160px;
+}
+main .rating .rating-list input[value="8"] + div .scale::after{
+    content: '8';
+    color: #698f00;
+}
+
+    /* Сортировка*/
+
+#desc:checked ~ .rating-list input[value="8"] + .rating-item {
+    order: 1;
+}
+#desc:checked ~ .rating-list input[value="7"] + .rating-item {
+    order: 2;
+}
+#desc:checked ~ .rating-list input[value="6"] + .rating-item {
+    order: 3;
+}
+#desc:checked ~ .rating-list input[value="5"] + .rating-item {
+    order: 4;
+}
+#desc:checked ~ .rating-list input[value="4"] + .rating-item {
+    order: 5;
+}
+#desc:checked ~ .rating-list input[value="3"] + .rating-item {
+    order: 6;
+}
+#desc:checked ~ .rating-list input[value="2"] + .rating-item {
+    order: 7;
+}
+#desc:checked ~ .rating-list input[value="1"] + .rating-item {
+    order: 8;
+}

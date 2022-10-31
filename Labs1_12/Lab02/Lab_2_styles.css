@@ -1,0 +1,64 @@
+ul li {
+ border: blue solid 1px;
+ margin-top: 10px;
+ width: 190px;
+ padding: 5px, 5px, 5px, 30px;
+}
+
+#p1 li:hover, #p2 li:hover{
+               background-color: green;
+               color: white;
+               border-color: green;
+           }
+
+#p1 li:hover + li + li{
+               background-color: red;
+               color: white;
+               border-color: red;
+           }
+
+#p2 li:hover ~ li:nth-last-child(n+2) {
+               background-color: red;
+               color: white;
+               border-color: red;
+           }
+
+#p3 div.hello p.test{
+               background-color: orange;
+           }
+
+#p4 p.test, .hello{
+               background-color: orange;
+           }
+
+#p5 p > a, a.test{
+               background-color: blue;
+           }
+
+#p6 #test b ~ i{
+               background-color: orange;
+           }
+
+#p7 li > b{
+               color: red;
+          }
+
+#p8 h2.header{
+               color: red;
+          }
+
+#p8 h3.header{
+               color: blue;
+          }
+
+#p9 #test h2 ~ p{
+               background-color: blue;
+          }
+
+#p10 p  *  i {
+               background-color: red;
+          }
+
+#p11 p[title*="привет"]{
+               background-color: red;
+          }

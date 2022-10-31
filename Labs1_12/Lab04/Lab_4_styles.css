@@ -1,0 +1,157 @@
+/*Переключение вида*/
+#checkbox-type-list {
+    display: none;
+}
+#label-checkbox-type-list svg {
+    width: 1.8em;
+    height: 1.8em;
+    cursor: pointer;
+    fill: #9699A5;
+}
+#label-checkbox-type-list svg:hover  {
+    fill: #534F4C;
+}
+#label-checkbox-type-list .svg-column{
+    display: inline-block;
+}
+#label-checkbox-type-list .svg-line{
+    display: none;
+}
+#checkbox-type-list:checked + #label-checkbox-type-list .svg-column {
+    display: none;
+}
+#checkbox-type-list:checked + #label-checkbox-type-list .svg-line {
+    display: inline-block;
+}
+#checkbox-type-list:checked ~ .content .product-card {
+    width: 95%;
+}
+#checkbox-type-list:checked ~ .content .product-card .product-card__img {
+    /*max-width: 33%;*/
+}
+#checkbox-type-list:checked ~ .content .product-card .product-card__wrapper {
+    max-width: 52%;
+}
+/* Карточка */
+.product-card {
+    margin: 0 10px 10px 0;
+    padding: 5px;
+    display: inline-block;
+    width: 260px;
+    white-space: normal;
+    vertical-align: top;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: justify;
+    /*border: solid #1d7fbb 0.2em;*/
+}
+
+
+/* Картинка */
+.product-card__img{
+    display: inline-block;
+    width: 260px;
+    text-align: center;
+}
+
+.product-card__img img{
+    width: 180px;
+    height: 240px;
+    padding: 15px;
+
+}
+.product-card__img img:hover{
+    opacity: 0.7;
+}
+/* Блок сведений + комментарии */
+.product-card__wrapper{
+    display: inline-block;
+    vertical-align: top;
+}
+
+/* Блок сведений */
+.product-card__info {
+    margin: 0 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+}
+
+.product-card__title a {
+    vertical-align: top;
+    font-size: 1.1em;
+    text-decoration: none;
+    font-weight: bold;
+    color: blueviolet;
+}
+.product-card__title a:hover {
+    color: red;
+}
+.product-card__category {
+    vertical-align: top;
+    font-size: 0.9em;
+}
+.product-card__price {
+    font-size: 1.6em;
+    color: red;
+    font-weight: bold;
+}
+
+/* Блок сведений - рейтинг*/
+
+.product-card__rating {
+    display: inline-block;
+}
+/* отключаю кнопки*/
+.product-card__rating input {
+    display: none;
+}
+/*инвертирую порядок*/
+.product-card__rating label {
+    float: right;
+}
+/* делаю отступ*/
+.product-card__rating label:before {
+    display: inline-block;
+    padding: 3px;
+}
+
+
+/*Половины перекрывают полных из-за absolute*/
+.product-card__rating .half:before {
+    position: absolute;
+    padding-right: 0;
+    cursor: pointer;
+}
+
+/*Если навел на полную, то добавляю перед полную звезду,*/
+/*также добавляю всем кто после hover полную звезду вперед,*/
+/*также делаю аналог предыдущего, только вместо hover, выбранный*/
+.product-card__rating .star.full:hover:before,
+.product-card__rating .star:hover ~ .star:before,
+.product-card__rating input:checked ~ .star.full:before
+{
+    content: url("https://upload.wikimedia.org/wikipedia/commons/5/51/Star_full.svg");
+    cursor: pointer;
+    color: #FFB300;
+}
+
+/*для каждой после выбранной звезды спереди заполняю половинами PS: полные перекроют половины*/
+/*Если навел на не полную, то добавляю перед неполную звезду*/
+.product-card__rating input:checked ~ .star.half:before,
+.product-card__rating .half:hover:before
+{
+    content: url("https://upload.wikimedia.org/wikipedia/commons/8/81/Star_half.svg");
+    color: #FFB300;
+}
+
+/* по умолчанию перед каждым лейблом стоит пустая звезды*/
+.product-card__rating .star:before {
+    content: url("https://upload.wikimedia.org/wikipedia/commons/4/49/Star_empty.svg");
+}
+
+/* Описание */
+.product-card__description {
+    margin: 0 20px;
+}
