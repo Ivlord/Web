@@ -1,6 +1,3 @@
-# Web programming. Practice 1. (2022)
-Author: Ivlord
-
 **Лабораторная работа №1**
 
 **Задание**
