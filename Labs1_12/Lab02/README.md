@@ -1,4 +1,4 @@
-[Выполненное задание в html](https://ivlord.github.io/Web/Labs1_12/Lab02/index.html)
+[Выполненное задание в html](https://ivlord.github.io/Web/Labs1_12/Lab02/solution/index.html)
 
 **Лабораторная работа №2**
 
@@ -46,4 +46,4 @@
 
 11. Сделайте селектор, который выберет все абзацы  **\<p\>**  с атрибутом  **title** , в значении которого есть слово  **'привет'**.
 
-[Выполненное задание в html](https://ivlord.github.io/Web/Labs1_12/Lab02/index.html)
+[Выполненное задание в html](https://ivlord.github.io/Web/Labs1_12/Lab02/solution/index.html)

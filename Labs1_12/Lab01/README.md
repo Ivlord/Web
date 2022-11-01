@@ -1,4 +1,4 @@
-[Выполненное задание в html](https://ivlord.github.io/Web/Labs1_12/Lab01/index.html)
+[Выполненное задание в html](https://ivlord.github.io/Web/Labs1_12/Lab01/solution/index.html)
 
 # Лабораторная работа №1
 
@@ -91,7 +91,7 @@
 
 Общий подход к оптимизации качества поиска начинается с выбора метрики. В поиске картинок Яндекса вид метрики примерно такой:
 
- ![](assets/RackMultipart20221101-1-x31b1p_html_6898e60cb71a5a5f.png)
+ ![](assets/image01.png)
 
 где
 n — это количество первых картинок (документов) выдачи, которые мы оцениваем;
@@ -165,4 +165,4 @@ f(...) — модель, которая агрегирует эти компон
 4. Что такое атрибут?
 5. Какие новые типы инпутов появились в HTML5?
 
-[Выполненное задание в html](https://ivlord.github.io/Web/Labs1_12/Lab01/index.html)
+[Выполненное задание в html](https://ivlord.github.io/Web/Labs1_12/Lab01/solution/index.html)
