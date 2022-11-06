@@ -60,9 +60,9 @@ Array.prototype.dup = function() { // remove duplicated items
 
 Array.prototype.andx = function(arr2 = []) { // +this & arr = intersection
     return this.filter(val => arr2.includes(val) )
-}
+}// [1,2,3,4] & [1,2,5,6] = [1,2]
 Array.prototype.orx = function(arr2 = []) { // this | arr = union
-    return this.concat( arr2.filter( val => !this.includes(val) ) )
+    return this.dup().concat( arr2.filter( val => !this.includes(val) ) )
 }
 Array.prototype.difx = function(arr2 = []) { // this - arr = difference
     return this.filter( val => !arr2.includes(val) )

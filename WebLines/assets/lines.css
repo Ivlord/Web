@@ -43,7 +43,7 @@ table.fieldcells {
 .selected  > .shadow { animation: shadow-anim  500ms linear infinite; }
 .ball-del  >  div    { animation: ball-del     300ms linear forwards; }
 .ball-add  >  div    { animation: ball-add     300ms linear forwards; }
-.ball-move > div.ball   { animation: ball-move    250ms linear forwards; } /*animation-iteration-count: 1;*/
+.ball-move > div.ball{ animation: ball-move    250ms linear forwards; } /*animation-iteration-count: 1;*/
 
 @-webkit-keyframes ball-del {
       0% { -webkit-transform: scale(1);   }

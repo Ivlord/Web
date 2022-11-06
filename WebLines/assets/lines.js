@@ -3,6 +3,7 @@ let selectedBallBS
 let foundPath
 let foundColor
 let activeBallMoves = 0
+let score = 0
 
 let bs = undefined
 let balldiv = undefined
@@ -11,14 +12,25 @@ onanimationend = (event) => {     //console.log('animation end: ', event)    //c
 
     let etp = event.target.parentElement
     etp.className = etp.className.delw(event.animationName)
-    if (event.animationName == 'ball-del'){
+    if(event.animationName == 'ball-add'){
+        etp.className = etp.className.delw('ball-add')
+        //etp.className = etp.className.delw('ball-del')
+        etp.className = etp.className.delw('selected')
+        etp.className = etp.className.delw('ball-move')
+    }
+    else if (event.animationName == 'ball-del'){
         etp.bcolor = 0
         etp.className = setEleColor(bs.className, 0)
+        etp.className = etp.className.delw('ball-add')
         etp.className = etp.className.delw('ball-del')
+        etp.className = etp.className.delw('selected')
+        etp.className = etp.className.delw('ball-move')
     }
     else if(event.animationName == 'ball-move'){
         activeBallMoves -= 1
-        // console.log("moves left:", activeBallMoves, foundPath.length-3, event.target)
+        etp.className = etp.className.delw('ball-add')
+        etp.className = etp.className.delw('ball-del')
+        etp.className = etp.className.delw('selected')
 
         if (activeBallMoves==(foundPath.length-3)) {
             addBall(F(foundPath[foundPath.length-1]), foundColor)
@@ -29,7 +41,6 @@ onanimationend = (event) => {     //console.log('animation end: ', event)    //c
         etp.className = etp.className.delw('ball-move')
     }
 }
-
 
 const createTable = () => {
     let divfield = document.querySelector('div.field')
@@ -63,10 +74,7 @@ const createTable = () => {
         tablefield.append(tablerow)
     }
     divfield.append(tablefield)
-    selectedBallBS = undefined
-    foundPath = undefined
-    foundColor = undefined
-    activeBallMoves = 0
+    GameReset()
 }
 
 const getFreeCells = () => f.filter(bs => !bs.bcolor)
@@ -135,37 +143,51 @@ function checkVectors(pnt=[0,0], starModel=[[1,1], [1,-1], [1,0], [0,1]], lineLe
     return (res.length)? res.concat([ F(pnt) ]) : []
 }
 
-let addBall = (bs, clr = 0) => {
+function updateScore(num){ // изменить отображение счета
+    score = num
+    document.getElementById('score').innerText = score.toString()
+}
+
+function GameReset(){
+    selectedBallBS = undefined
+    foundPath = undefined
+    foundColor = undefined
+    activeBallMoves = 0
+    updateScore(0)
+}
+
+function GameOver(){}
+
+function addBall(bs, clr = 0) { // добавить один шар случайного или установленного цвета
     bs.bcolor = (clr)? clr : Math.floor(Math.random() * 6.99) + 1
     bs.className = setEleColor(bs.className, bs.bcolor)
     bs.className = bs.className.addw('ball-add')
 
-    // console.log(" checking lines")
-    //RemoveLinesPNT = checkVectors(foundPath[foundPath.length-1])
     RemoveLinesPNT = checkVectors(bs.byx)
-    // console.log(" RemoveLinesPNT:", RemoveLinesPNT, RemoveLinesPNT.length)
-    if (RemoveLinesPNT.length) RemoveLinesPNT.forEach(bs => delBall(bs))
-
+    if (RemoveLinesPNT.length) {
+        RemoveLinesPNT.forEach(bs => delBall(bs))
+        score += RemoveLinesPNT.length*2 + RemoveLinesPNT.length - 5 // +1 за каждый доп свыше 5 шар
+        updateScore(score)
+    }else if(clr) {                 // была перестановка шара и не закрыта линия
+        addBallsOnField(3)          // добавить 3 шара случаного цвета
+    }
 }
 
-let delBall = bs => {
+function delBall(bs) {
     bs.className = bs.className.delw('selected')
     bs.className = bs.className.addw('ball-del')
     bs.bcolor = 0
 }
 
-let addBall2 = (pnt, clr) => { F(pnt).bcolor = clr; F(pnt).className = setEleColor(" bs", clr) }
-
-const addBallsOnField = (num) => {
+function addBallsOnField(num) {
     freeCells = getFreeCells()
-    while (num > 0) { // freeCells.length &
+    while (num > 0 && freeCells.length) {
         oneFreeCell = freeCells.sample(1)[0]
         addBall(oneFreeCell)
-        //checkLineFill() // проверка заполненности линии и удаление шаров
         freeCells = getFreeCells()
         num = num - 1
     }
-    return num
+    if (!freeCells.length) GameOver()         // конец игры нет места
 }
 
 function main_click(event){
@@ -217,37 +239,8 @@ function main_click(event){
 
 createTable()
 //console.log(balldiv);
-addBallsOnField(60)
+addBallsOnField(3)
 
+console.log(document.getElementById('score'))
 
-
-/*ballsNew = [
-    [4,4],
-    [4,5], [4,6], [4,7], [4,8],
-    [4,3], [4,2], [4,1],
-]
-for (let p=0; p<ballsNew.length; p++) {
-    addBall2(ballsNew[p], 3)
-}*/
-
-//ff = checkVectors(point=[4,4], starModel=[ [1,1], [1,-1], [1,0], [0,1] ], lineLen = 5)
-//console.log("res final = ", ff, ff.length)
-
-//console.log(a & b)
-
-//
-
-
-
-/*
-var BreakException = {};
-try {
-    [1, 2, 3].forEach(function(el) {
-        console.log(el);
-        if (el === 2) throw BreakException;
-    });
-} catch (e) {
-    if (e !== BreakException) throw e;
-}*/
-
-
+// let addBall2 = (pnt, clr) => { F(pnt).bcolor = clr; F(pnt).className = setEleColor(" bs", clr) }
