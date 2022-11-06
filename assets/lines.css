@@ -1,0 +1,109 @@
+
+*{ margin: 0 0; padding: 0 0; }
+
+table.fieldcells {
+    border-collapse: collapse;
+    border: 3px solid blue;
+}
+
+ td.fieldcell {
+    border: 1px solid blue;
+    background-image: url('../assets/fieldcell.png'); background-repeat: no-repeat;
+    width: 67px; height: 67px;
+    text-align: center;
+}
+
+.shadow {
+    position: relative;
+    height: 20px; width: 39px; border-radius: 50%; margin:auto;
+    top: 44px;
+    z-index: 1;
+    background: radial-gradient(circle at 50px 50px, #000, grey);
+}
+.ball-move > div.shadow { background: transparent; }
+.clr0 > .shadow { background: transparent; }
+
+.ball {
+    position: relative;
+    height: 45px; width: 45px; border-radius: 50%; margin: auto;
+    bottom: 12px;
+    z-index: 2;
+ } /*display: block; background: black; margin: 0;*/
+
+.clr0         { background: transparent;                                         }
+.clr1 > .ball { background: radial-gradient(circle at 50px 50px, #000, #5fedfa); }
+.clr2 > .ball { background: radial-gradient(circle at 50px 50px, #000, #0a67d1); }
+.clr3 > .ball { background: radial-gradient(circle at 50px 50px, #000, #3fe80c); }
+.clr4 > .ball { background: radial-gradient(circle at 50px 50px, #000, #fc0581); }
+.clr5 > .ball { background: radial-gradient(circle at 50px 50px, #000, #eb3a05); }
+.clr6 > .ball { background: radial-gradient(circle at 50px 50px, #000, #9b05eb); }
+.clr7 > .ball { background: radial-gradient(circle at 50px 50px, #000, #fae502); }
+
+.selected  > .ball   { animation: ball-anim    500ms linear infinite; }
+.selected  > .shadow { animation: shadow-anim  500ms linear infinite; }
+.ball-del  >  div    { animation: ball-del     300ms linear forwards; }
+.ball-add  >  div    { animation: ball-add     300ms linear forwards; }
+.ball-move > div.ball   { animation: ball-move    250ms linear forwards; } /*animation-iteration-count: 1;*/
+
+@-webkit-keyframes ball-del {
+      0% { -webkit-transform: scale(1);   }
+     20% { -webkit-transform: scale(0.8); }
+     40% { -webkit-transform: scale(0.6); }
+     60% { -webkit-transform: scale(0.4); }
+     80% { -webkit-transform: scale(0.2); }
+     99% { -webkit-transform: scale(1);   }
+    100% { -webkit-transform: scale(0);   }
+}
+
+@-webkit-keyframes ball-add {
+      0% { -webkit-transform: scale(0);   }
+     20% { -webkit-transform: scale(0.2); }
+     40% { -webkit-transform: scale(0.4); }
+     60% { -webkit-transform: scale(0.6); }
+     80% { -webkit-transform: scale(0.8); }
+    100% { -webkit-transform: scale(1);   }
+}
+
+@-webkit-keyframes ball-move {
+      0% { -webkit-transform: scale(0);   }
+     20% { -webkit-transform: scale(0.25); }
+     40% { -webkit-transform: scale(0.50); }
+     60% { -webkit-transform: scale(0.50); }
+     80% { -webkit-transform: scale(0.25); }
+     99% { -webkit-transform: scale(0);   }
+    100% { -webkit-transform: scale(1);   }
+}
+
+@-webkit-keyframes ball-anim {
+   0% { -webkit-transform: scale(1);                                   }
+  20% { -webkit-transform: scaleY(0.95) scaleX(1.05) translateY( 3px); }
+  48% { -webkit-transform: scaleY(1.1)  scaleX(0.9)  translateY(-6px); }
+  68% { -webkit-transform: scaleY(0.98) scaleX(1.02) translateY(-4px); }
+  80% { -webkit-transform: scaleY(1.02) scaleX(0.98) translateY( 4px); }
+ 100% { -webkit-transform: scale(1);                                   }
+}
+
+@-webkit-keyframes shadow-anim {
+   0% { -webkit-transform: scale(1);               }
+  20% { -webkit-transform: scaleY(1) scaleX(1.05); }
+  48% { -webkit-transform: scaleY(1) scaleX(0.9 ); }
+  68% { -webkit-transform: scaleY(1) scaleX(1.02); }
+  80% { -webkit-transform: scaleY(1) scaleX(0.98); }
+ 100% { -webkit-transform: scale(1);               }
+}
+
+.info{
+    border: 1px solid black;
+    vertical-alignment: top;
+    left: 100px;
+    /*width:*/
+}
+
+
+
+
+/*background: red;*/
+/*background: -webkit-radial-gradient(100px 100px, circle, #000, #5cabff);*/
+/*background: -moz-radial-gradient(50px 50px, circle, #000, #5cabff);*/
+/*background: radial-gradient(100px 100px, circle, #000, #5cabff);*/
+/*background: -moz-radial-gradient(100px 100px, circle, #000, grey);*/
