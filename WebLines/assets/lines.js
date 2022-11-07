@@ -1,36 +1,33 @@
 let f = [] // 1d
+let helpCells = []
 let selectedBallBS
 let foundPath
 let foundColor
 let activeBallMoves = 0
 let score = 0
-
+let freeCells
 let bs = undefined
 let balldiv = undefined
+let firstRun = true
 
 onanimationend = (event) => {     //console.log('animation end: ', event)    //console.log('       target: ', event.target)
-
     let etp = event.target.parentElement
     etp.className = etp.className.delw(event.animationName)
+    etp.className = etp.className.delw('ball-add')
+    etp.className = etp.className.delw('selected')
     if(event.animationName == 'ball-add'){
-        etp.className = etp.className.delw('ball-add')
-        //etp.className = etp.className.delw('ball-del')
-        etp.className = etp.className.delw('selected')
+        //etp.className = etp.className.delw('ball-del') //
         etp.className = etp.className.delw('ball-move')
     }
     else if (event.animationName == 'ball-del'){
         etp.bcolor = 0
         etp.className = setEleColor(bs.className, 0)
-        etp.className = etp.className.delw('ball-add')
         etp.className = etp.className.delw('ball-del')
-        etp.className = etp.className.delw('selected')
         etp.className = etp.className.delw('ball-move')
     }
     else if(event.animationName == 'ball-move'){
         activeBallMoves -= 1
-        etp.className = etp.className.delw('ball-add')
         etp.className = etp.className.delw('ball-del')
-        etp.className = etp.className.delw('selected')
 
         if (activeBallMoves==(foundPath.length-3)) {
             addBall(F(foundPath[foundPath.length-1]), foundColor)
@@ -42,39 +39,40 @@ onanimationend = (event) => {     //console.log('animation end: ', event)    //c
     }
 }
 
-const createTable = () => {
-    let divfield = document.querySelector('div.field')
+const createTable = (sel, yy, xx, clickFun, addHelp = false) => {
+    let divfield = document.querySelector(sel)
     while (divfield.firstChild) divfield.removeChild(divfield.firstChild)
-    f = []
+    arr = []
     tablefield = document.createElement('table'); tablefield.className = "fieldcells"
 
-    for (let y = 0; y<9; y++){
+    for (let y = 0; y<yy; y++){
         let tablerow = document.createElement('tr') // создаем строку поля
-        for (let x = 0; x<9; x++){ // клетка поля
+        for (let x = 0; x<xx; x++){ // клетка поля
             fieldcell = document.createElement('td'); fieldcell.className = 'fieldcell'
             bs = document.createElement('div')      // объединение шара и тени: 'c0 selected'
                                                     // bxy[y,x]
-            bs.onclick = main_click
-            bs.className = 'clr0 bs'                // пустая клетка. bs- ball&shadow container
+            bs.onclick = clickFun
+            bs.className = 'clr0 bs' + ((addHelp)? ' help'+x:'') // пустая клетка. bs- ball&shadow container
             bs['pf']     = true                     // маркер занятости PathFind true=свободна
             bs['byx']    = [y, x]
             bs['bcolor'] = 0
 
             shadowdiv = document.createElement('div'); shadowdiv.className = 'shadow'
             balldiv = document.createElement('div'); balldiv.className = 'ball'
-            //balldiv.onclick = ball_click
 
             bs.append(shadowdiv)
             bs.append(balldiv)
             fieldcell.append(bs)
 
-            f.push(bs)
+            arr.push(bs)
             tablerow.append(fieldcell)
         }
         tablefield.append(tablerow)
     }
     divfield.append(tablefield)
-    GameReset()
+
+    if (!addHelp) GameReset()
+    return arr
 }
 
 const getFreeCells = () => f.filter(bs => !bs.bcolor)
@@ -145,7 +143,7 @@ function checkVectors(pnt=[0,0], starModel=[[1,1], [1,-1], [1,0], [0,1]], lineLe
 
 function updateScore(num){ // изменить отображение счета
     score = num
-    document.getElementById('score').innerText = score.toString()
+    document.querySelector('div.scorenum').innerText = score.toString()
 }
 
 function GameReset(){
@@ -154,22 +152,39 @@ function GameReset(){
     foundColor = undefined
     activeBallMoves = 0
     updateScore(0)
+    f.forEach(bs => {
+        bs.bcolor = 0
+        bs.className = 'clr0 bs'
+    })
+    freeCells = getFreeCells()
+    addBallsToHelp()
+    addBallsToHelp()
+    addBallsFromHelp(noPenalty = true)
 }
 
-function GameOver(){}
+function GameOver(){
+    if(!firstRun) {
+        alert('Вы проиграли!')
+        GameReset()
+    }
+    firstRun = false
+}
 
-function addBall(bs, clr = 0) { // добавить один шар случайного или установленного цвета
+function addBall(bs, clr = 0, noPenalty = false) { // добавить один шар случайного или установленного цвета
     bs.bcolor = (clr)? clr : Math.floor(Math.random() * 6.99) + 1
     bs.className = setEleColor(bs.className, bs.bcolor)
     bs.className = bs.className.addw('ball-add')
 
-    RemoveLinesPNT = checkVectors(bs.byx)
-    if (RemoveLinesPNT.length) {
-        RemoveLinesPNT.forEach(bs => delBall(bs))
-        score += RemoveLinesPNT.length*2 + RemoveLinesPNT.length - 5 // +1 за каждый доп свыше 5 шар
-        updateScore(score)
-    }else if(clr) {                 // была перестановка шара и не закрыта линия
-        addBallsOnField(3)          // добавить 3 шара случаного цвета
+    if(!(bs.className.includes('help') || noPenalty)){
+
+        RemoveLinesPNT = checkVectors(bs.byx)
+        if (RemoveLinesPNT.length) {
+            RemoveLinesPNT.forEach(bs => delBall(bs))
+            score += RemoveLinesPNT.length*2 + RemoveLinesPNT.length - 5 // +1 за каждый доп свыше 5 шар
+            updateScore(score)
+        }else if(clr) {                 // была перестановка шара и не закрыта линия
+            addBallsFromHelp(true)
+        }
     }
 }
 
@@ -179,15 +194,27 @@ function delBall(bs) {
     bs.bcolor = 0
 }
 
-function addBallsOnField(num) {
+function addBallsToHelp(){
+    helpCells.forEach(bs => {
+        addBall(bs, clr = 0)
+    } )
+}
+
+function addBallsFromHelp(noPenalty = false) {
+    let numLimit = helpCells.length
+    let num = 0
     freeCells = getFreeCells()
-    while (num > 0 && freeCells.length) {
+    console.log(freeCells)
+    while (num < numLimit && freeCells.length) {
         oneFreeCell = freeCells.sample(1)[0]
-        addBall(oneFreeCell)
+        addBall(oneFreeCell, helpCells[num].bcolor, noPenalty)
         freeCells = getFreeCells()
-        num = num - 1
+        num = num + 1
     }
+    console.log(freeCells)
+    console.log('--------------------------------')
     if (!freeCells.length) GameOver()         // конец игры нет места
+    else { addBallsToHelp() }
 }
 
 function main_click(event){
@@ -236,11 +263,14 @@ function main_click(event){
     }
 
 }
+function help_click(event){
+    addBallsFromHelp(noPenalty = true)
+}
 
-createTable()
-//console.log(balldiv);
-addBallsOnField(3)
+f = createTable('div.field', 9, 9, main_click, addHelp = false)
+helpCells = createTable('div.nextballs', 1, 3, help_click, addHelp = true)
+GameReset()
 
-console.log(document.getElementById('score'))
 
-// let addBall2 = (pnt, clr) => { F(pnt).bcolor = clr; F(pnt).className = setEleColor(" bs", clr) }
+//addBallsToHelp()
+//addBallsFromHelp(noPenalty = true)

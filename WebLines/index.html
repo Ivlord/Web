@@ -7,12 +7,25 @@
 </head>
 <body>
 
-<div class = 'field'></div>
-<div class = 'info'>
-    <div class = 'score'></div>
-    <div class = 'nextballs'></div>
+<div class = 'game'>
+    <div class = 'field'></div>
+    <div class = 'info'>
+        <div class = 'gametitle'>Lines
+            <div class = 'developer'>by Ivlord</div>
+        </div>
+        <div class = 'scorezone'>
+            <div class = 'scoretitle'>Счет игры</div>
+            <div class = 'scorenum'></div>
+        </div>
+        <div class = 'nextballs'></div>
+        <div class = 'buttons'>
+            <form>
+                <button class = 'newgame' onclick='GameReset'>Новая игра</button>
+            </form>
+        </div>
+    </div>
 </div>
-<div id = 'score'>0</div>
+
 </body>
 <script src = "assets\JSfuncionsIvlord.js"></script>
 <script src = "assets\lines.js"></script>
@@ -34,3 +47,26 @@
 
 
 
+<!--
+<table class='fieldcells'>
+    <tr>
+        <td class='fieldcell help0'>
+            <div class="clr0 bs">
+                <div class="shadow"></div>
+                <div class="ball"></div>
+            </div>
+        </td>
+        <td class='fieldcell help1'>
+            <div class="clr0 bs">
+                <div class="shadow"></div>
+                <div class="ball"></div>
+            </div>
+        </td>
+        <td class='fieldcell help2'>
+            <div class="clr0 bs">
+                <div class="shadow"></div>
+                <div class="ball"></div>
+            </div>
+        </td>
+    </tr>
+</table>-->

@@ -1,9 +1,184 @@
 
 *{ margin: 0 0; padding: 0 0; }
 
+.game{
+    vertical-align: top;
+    display: flex;
+    border: 5px solid blue;
+    height: auto;
+    width: 820px;
+    margin: 20px auto 20px auto;
+}
+
+.info{
+    position: relative;
+    display: block;
+    height: auto;
+    width: auto;
+    /*border: 3px solid green;*/
+}
+
+/*--------------------------------------------------------*/
+.gametitle {
+    display: inline-block;
+    position: relative;
+    letter-spacing: .05em;
+    text-shadow:
+            1px 1px mediumturquoise,
+            -1px 1px mediumturquoise,
+            -1px -1px mediumturquoise,
+            1px -1px mediumturquoise;
+    color: blue;
+    transition: all 1s;
+    font-size: 80px;
+    text-align: center;
+    margin: -15px 10px 7px 0px;
+}
+
+.gametitle:before {
+    content: "";
+    position: absolute;
+    top: 10px;
+    right: -15px;
+    bottom: -15px;
+    left: 0;
+    z-index: -1;
+    background: linear-gradient(
+            -45deg,
+            rgba(72, 209, 204, 0) 2px,
+            mediumturquoise 3px,
+            rgba(72, 209, 204, 0) 3px )
+    repeat;
+    background-size: 4px 4px;
+}
+
+.gametitle:after {
+    content: attr(data-name);
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    z-index: -2;
+    text-shadow:
+            1px 1px blue,
+            2px 2px blue,
+            3px 3px blue,
+            4px 4px blue;
+    color: blue;
+    transition: all 1s;
+}
+
+.gametitle:hover {
+    color: #f51010;
+}
+
+.gametitle:hover:before {
+    animation: 5s move_lines infinite linear;
+}
+
+.gametitle:hover:after {
+    color: #f51010;
+    text-shadow:
+            1px 1px #f51010,
+            2px 2px #f51010,
+            3px 3px #f51010,
+            4px 4px #f51010;
+}
+
+@keyframes move_lines {
+    100% {
+        background-position: 40px 40px;
+    }
+}
+
+.developer{
+    position: relative;
+    display: block;
+    vertical-align: bottom;
+    border-radius: 15px;
+    background-color: aquamarine;
+    font-size: small;
+    width: 100px;
+    margin: -10px 0 0 95px;
+    top: 7px;
+}
+/*--------------------------------------------------------*/
+
+.scorezone{
+    position: relative;
+    display: block;
+    vertical-align: top;
+    horiz-align: right;
+    /*border: 2px solid blue;*/
+    height: auto;
+    width: auto;
+    margin: 5px 0 0 0;
+}
+
+.scoretitle{
+    position: relative;
+    display: block;
+    vertical-align: top;
+    horiz-align: right;
+    /*border: 2px solid red;*/
+    height: auto;
+    width: auto;
+    margin: 15px 5px 5px 5px;
+    text-align: center;
+    font-size: 38px;
+    color: aquamarine;
+    background: #0a67d1;
+    border-radius: 15px;
+    font-family: "Times New Roman";
+}
+
+.scorenum {
+    position: relative;
+    display: block;
+    vertical-align: top;
+    horiz-align: right;
+    /*border: 2px solid red;*/
+    background: #0a67d1;
+    color: aquamarine;
+    height: auto;
+    width: auto;
+    margin: 5px 5px;
+    text-align: center;
+    font-size: 40px;
+    border-radius: 15px;
+}
+
+.nextballs {
+    height: auto;/*71px;*/
+    width: auto;
+    margin: 15px auto auto 4px;
+    /*border: 3px solid darkmagenta;*/
+    /*border-radius: 15px;*/
+}
+
+/*.help0{
+    border-radius: 15px 15px 0 0;
+}*/
+
+.newgame{
+    position: relative;
+    display: block;
+    background: #0a67d1;
+    color: aquamarine;
+    font-size: 30px;
+    border-radius: 15px;
+    alignment: center;
+    width: auto;
+    height: auto;
+    margin: 15px auto auto auto;
+    padding: 10px 25px 10px 25px;
+    font-family: "Times New Roman";
+}
+/*------------- -----------*/
+
 table.fieldcells {
     border-collapse: collapse;
-    border: 3px solid blue;
+    border: 1px solid blue;
+    margin: -1px 0 -1px -2px;
 }
 
  td.fieldcell {
@@ -54,7 +229,6 @@ table.fieldcells {
      99% { -webkit-transform: scale(1);   }
     100% { -webkit-transform: scale(0);   }
 }
-
 @-webkit-keyframes ball-add {
       0% { -webkit-transform: scale(0);   }
      20% { -webkit-transform: scale(0.2); }
@@ -63,7 +237,6 @@ table.fieldcells {
      80% { -webkit-transform: scale(0.8); }
     100% { -webkit-transform: scale(1);   }
 }
-
 @-webkit-keyframes ball-move {
       0% { -webkit-transform: scale(0);   }
      20% { -webkit-transform: scale(0.25); }
@@ -73,7 +246,6 @@ table.fieldcells {
      99% { -webkit-transform: scale(0);   }
     100% { -webkit-transform: scale(1);   }
 }
-
 @-webkit-keyframes ball-anim {
    0% { -webkit-transform: scale(1);                                   }
   20% { -webkit-transform: scaleY(0.95) scaleX(1.05) translateY( 3px); }
@@ -82,7 +254,6 @@ table.fieldcells {
   80% { -webkit-transform: scaleY(1.02) scaleX(0.98) translateY( 4px); }
  100% { -webkit-transform: scale(1);                                   }
 }
-
 @-webkit-keyframes shadow-anim {
    0% { -webkit-transform: scale(1);               }
   20% { -webkit-transform: scaleY(1) scaleX(1.05); }
@@ -91,15 +262,6 @@ table.fieldcells {
   80% { -webkit-transform: scaleY(1) scaleX(0.98); }
  100% { -webkit-transform: scale(1);               }
 }
-
-.info{
-    border: 1px solid black;
-    vertical-alignment: top;
-    left: 100px;
-    /*width:*/
-}
-
-
 
 
 /*background: red;*/
