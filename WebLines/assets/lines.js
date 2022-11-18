@@ -10,24 +10,33 @@ let bs = undefined
 let balldiv = undefined
 let firstRun = true
 
-onanimationend = (event) => {     //console.log('animation end: ', event)    //console.log('       target: ', event.target)
+// FE: Устанавливает класс цвета шара.
+// Удаляет вхождения 'clr' + любое количество цифр за ним И все мульти-пробелы в строке
+setEleColor = (str, clr = '0') => str.mod('clr', clr? clr:"0")
+// Проверка, попадения точки в зону [minVal, maxVal]
+YXinRange = (pnt = [0, 0], maxVal = [8, 8], minVal = [0, 0]) =>
+    minVal[0] <= pnt[0] && pnt[0] <= maxVal[0] && minVal[1] <= pnt[1] && pnt[1] <= maxVal[1]
+YXNEG = off => [(off[0])? -off[0] : 0, (off[1])? -off[1] : 0]
+YX2X = (yx, rowLen = 9) => yx[0] * rowLen + yx[1] // конверт 2d координат в 1d
+
+onanimationend = (event) => {
     let etp = event.target.parentElement
-    etp.className = etp.className.delw(event.animationName)
-    etp.className = etp.className.delw('ball-add')
-    etp.className = etp.className.delw('selected')
+    etp.className = etp.className.mod(event.animationName, null)
+    etp.className = etp.className.mod('ball-add', null)
+    etp.className = etp.className.mod('selected', null)
+
     if(event.animationName == 'ball-add'){
-        //etp.className = etp.className.delw('ball-del') //
-        etp.className = etp.className.delw('ball-move')
+        etp.className = etp.className.mod('ball-move', null)
     }
     else if (event.animationName == 'ball-del'){
         etp.bcolor = 0
         etp.className = setEleColor(bs.className, 0)
-        etp.className = etp.className.delw('ball-del')
-        etp.className = etp.className.delw('ball-move')
+        etp.className = etp.className.mod('ball-del', null)
+        etp.className = etp.className.mod('ball-move', null)
     }
     else if(event.animationName == 'ball-move'){
         activeBallMoves -= 1
-        etp.className = etp.className.delw('ball-del')
+        etp.className = etp.className.mod('ball-del', null)
 
         if (activeBallMoves==(foundPath.length-3)) {
             addBall(F(foundPath[foundPath.length-1]), foundColor)
@@ -35,7 +44,7 @@ onanimationend = (event) => {     //console.log('animation end: ', event)    //c
 
         etp.bcolor = 0
         etp.className = setEleColor(bs.className, 0)
-        etp.className = etp.className.delw('ball-move')
+        etp.className = etp.className.mod('ball-move', null)
     }
 }
 
@@ -83,7 +92,6 @@ function pathfind(f, start = [0, 0], end = [ 0, 0], func = Fcol, freePass = [0],
                   update_model = [[0,-1], [1,0], [0,1], [-1,0]] ){
     let found = [] // [    [  path>[[x,y],[x,y]] ]    ]
     let paths = [ [[...start]] ]
-    // console.log(" > start paths ", paths, "  end: ", end)
     let ok = pnt => YXinRange(pnt) && F(pnt).pf
     // чистим маркеры PathFind
     f.forEach( bs => { bs.pf = (freePass.includes(bs.bcolor))? true : false } )
@@ -96,26 +104,15 @@ function pathfind(f, start = [0, 0], end = [ 0, 0], func = Fcol, freePass = [0],
     // Дополнительный маркер занятой клетки для PF = -1
 
     oneStep = newPaths => {
-        // console.log("-----------------------")
-        // console.log(" => onestep got paths: ", paths)
         for(path of paths){
-            // console.log("  => path > ", path)
-            // console.log("  => last dot path[-1] > ", path[path.length-1])
             // [ [x,y], [x,y]...   ] - не за экраном и цвет в списке разрешенных
             let newDots = update_model.map(sMod => path[path.length-1].off(sMod) ).filter(dot => ok(dot))
-            // console.log("    => new dots: ", newDots)
             newDots.forEach(pnt => {
                 F(pnt).pf = false
-                let newPath = path.deepcopy()
+                let newPath = path.clone()
                 newPath.push(pnt)
-                // console.log("      => newPath: ", newPath)
                 newPaths.push(newPath)
-                // console.log("      => +newPaths: ", newPaths)
-                // console.log("        => pnt: ", pnt, " end:", end )
-                //if (pnt[0] == end[0] && pnt[1] == end[1]) found = newPath.deepcopy()
-                if (pnt[0] == end[0] && pnt[1] == end[1]) {
-                    // console.log("        => Found solution: ", newPath )
-                    found = newPath.deepcopy()}
+                if (pnt[0] == end[0] && pnt[1] == end[1]) { found = newPath.clone() }
                 }
             ) // маркируем точки как занятиые в PF
         }
@@ -126,16 +123,15 @@ function pathfind(f, start = [0, 0], end = [ 0, 0], func = Fcol, freePass = [0],
     return found
 }
 
-// Пример function declaration
 // Рекурсивная функция рассчитывающая количество шаров одного цвета, расположенных в линию
 // (горизонтальна, вертикальная, 2 варианта диагональной)
 function checkVectors(pnt=[0,0], starModel=[[1,1], [1,-1], [1,0], [0,1]], lineLen = 5){
     const oneVector = (pnt, sMod, clr) => (YXinRange(pnt) && F(pnt).bcolor === clr)?
-        [F(pnt)].concat( oneVector( YXOFF( pnt, sMod), sMod, clr )) : []
+        [F(pnt)].concat( oneVector( pnt.off(sMod), sMod, clr )) : []
     let res = []
     starModel.forEach( (sMod) => {
-        let tmpRes = [].concat( oneVector(YXOFF( pnt,       sMod ),        sMod,  F(pnt).bcolor) ,
-                                oneVector(YXOFF( pnt, YXNEG(sMod) ), YXNEG(sMod), F(pnt).bcolor) )
+        let tmpRes = [].concat( oneVector(pnt.off(        sMod ),        sMod, F(pnt).bcolor) ,
+                                oneVector(pnt.off( YXNEG(sMod) ), YXNEG(sMod), F(pnt).bcolor) )
         if (tmpRes.length >= lineLen - 1) res = res.concat(tmpRes)
     } )
     return (res.length)? res.concat([ F(pnt) ]) : []
@@ -173,7 +169,7 @@ function GameOver(){
 function addBall(bs, clr = 0, noPenalty = false) { // добавить один шар случайного или установленного цвета
     bs.bcolor = (clr)? clr : Math.floor(Math.random() * 6.99) + 1
     bs.className = setEleColor(bs.className, bs.bcolor)
-    bs.className = bs.className.addw('ball-add')
+    bs.className = bs.className.mod('ball-add', 0)
 
     if(!(bs.className.includes('help') || noPenalty)){
 
@@ -189,8 +185,8 @@ function addBall(bs, clr = 0, noPenalty = false) { // добавить один 
 }
 
 function delBall(bs) {
-    bs.className = bs.className.delw('selected')
-    bs.className = bs.className.addw('ball-del')
+    bs.className = bs.className.mod('selected', null)
+    bs.className = bs.className.mod('ball-del', 0)
     bs.bcolor = 0
 }
 
@@ -204,25 +200,20 @@ function addBallsFromHelp(noPenalty = false) {
     let numLimit = helpCells.length
     let num = 0
     freeCells = getFreeCells()
-    console.log(freeCells)
     while (num < numLimit && freeCells.length) {
         oneFreeCell = freeCells.sample(1)[0]
         addBall(oneFreeCell, helpCells[num].bcolor, noPenalty)
         freeCells = getFreeCells()
         num = num + 1
     }
-    console.log(freeCells)
-    console.log('--------------------------------')
     if (!freeCells.length) GameOver()         // конец игры нет места
     else { addBallsToHelp() }
 }
 
 function main_click(event){
-
     if (event.target.className.includes('clr')) {bs = event.target}
     else { bs = event.target.parentElement}
 
-    // console.log(" main_click ===> bs >", bs)
     if (!bs.bcolor) { // color=0
         if(!selectedBallBS) {/*console.log('no ball selected. ', bs.byx)*/} // клик по клетке при невыбранном шаре. спецэффект?
         else{
@@ -231,35 +222,27 @@ function main_click(event){
             if (!foundPath.length) {
                 console.log('no path to:', bs.byx, "from:", selectedBallBS.byx, selectedBallBS)
             } // нет пути
-            else{ // путь найден
-                /////////////////////////////////////////////////////////////////////////////// found!
+            else{ // путь найден /////////////////////////////////////////////////////////////// found!
 
                 foundColor = F(foundPath[0]).bcolor
                 activeBallMoves = 0
                 if (foundPath.length>2) foundPath.slice(1, foundPath.length-1).forEach(pnt => {
                     F(pnt).className = setEleColor(F(pnt).className, foundColor)
-                    F(pnt).className = F(pnt).className.addw('ball-move')
+                    F(pnt).className = F(pnt).className.mod('ball-move', 0)
                     activeBallMoves += 1
                 })
                 else addBall(F(foundPath[foundPath.length-1]), foundColor)
 
-                // console.log("moves added:", activeBallMoves)
-
                 delBall(F(foundPath[0]))
                 selectedBallBS = undefined
-
-                // console.log('move to->', foundPath[foundPath.length-1])
             }
-
-
         }
     }
     else if(bs.className.includes('selected')){console.log('double ball click. already selected. ', bs.byx)} // повторный клик на выбранный шар. спецэфект?
     else{
-        if(selectedBallBS) selectedBallBS.className = selectedBallBS.className.delw('selected')
-        bs.className = bs.className.addw('selected')
-        selectedBallBS = bs
-        // console.log('new ball selected at: ', bs.byx)
+        if(selectedBallBS) selectedBallBS.className = selectedBallBS.className.mod('selected', null)
+        bs.className = bs.className.mod('selected', 0)
+        selectedBallBS = bs // console.log('new ball selected at: ', bs.byx)
     }
 
 }
@@ -271,6 +254,3 @@ f = createTable('div.field', 9, 9, main_click, addHelp = false)
 helpCells = createTable('div.nextballs', 1, 3, help_click, addHelp = true)
 GameReset()
 
-
-//addBallsToHelp()
-//addBallsFromHelp(noPenalty = true)

@@ -34,6 +34,11 @@ String.prototype.addw = function(wrd) {
     return this.delw(wrd) + ' ' + wrd
 }
 
+String.prototype.setClassNumber = function(wrd, num) {
+    return (wrd + num + ' ' + this.replace(RegExp(`${wrd}\\d*`, 'g'), '')).CutSpaces()
+}
+
+
 // FE: Устанавливает класс цвета шара.
 // Удаляет вхождения 'clr' + любое количество цифр за ним И все мульти-пробелы в строке
 setEleColor = (str, clr = 0) => ('clr' + clr + ' ' + str.replace(/clr\d*/g, '')).CutSpaces()
