@@ -12,7 +12,7 @@ let firstRun = true
 
 // FE: Устанавливает класс цвета шара.
 // Удаляет вхождения 'clr' + любое количество цифр за ним И все мульти-пробелы в строке
-setEleColor = (str, clr = '0') => str.mod('clr', clr? clr:"0")
+setEleColor = (str, clr = '0') => str.mod('clr', null).mod('clr', clr? clr:"0")
 // Проверка, попадения точки в зону [minVal, maxVal]
 YXinRange = (pnt = [0, 0], maxVal = [8, 8], minVal = [0, 0]) =>
     minVal[0] <= pnt[0] && pnt[0] <= maxVal[0] && minVal[1] <= pnt[1] && pnt[1] <= maxVal[1]
@@ -169,7 +169,7 @@ function GameOver(){
 function addBall(bs, clr = 0, noPenalty = false) { // добавить один шар случайного или установленного цвета
     bs.bcolor = (clr)? clr : Math.floor(Math.random() * 6.99) + 1
     bs.className = setEleColor(bs.className, bs.bcolor)
-    bs.className = bs.className.mod('ball-add', 0)
+    bs.className = bs.className.mod('ball-add', null).mod('ball-add', '')
 
     if(!(bs.className.includes('help') || noPenalty)){
 
@@ -186,7 +186,7 @@ function addBall(bs, clr = 0, noPenalty = false) { // добавить один 
 
 function delBall(bs) {
     bs.className = bs.className.mod('selected', null)
-    bs.className = bs.className.mod('ball-del', 0)
+    bs.className = bs.className.mod('ball-del', null).mod('ball-del', '')
     bs.bcolor = 0
 }
 
@@ -228,7 +228,7 @@ function main_click(event){
                 activeBallMoves = 0
                 if (foundPath.length>2) foundPath.slice(1, foundPath.length-1).forEach(pnt => {
                     F(pnt).className = setEleColor(F(pnt).className, foundColor)
-                    F(pnt).className = F(pnt).className.mod('ball-move', 0)
+                    F(pnt).className = F(pnt).className.mod('ball-move', null).mod('ball-move', '')
                     activeBallMoves += 1
                 })
                 else addBall(F(foundPath[foundPath.length-1]), foundColor)
@@ -241,7 +241,7 @@ function main_click(event){
     else if(bs.className.includes('selected')){console.log('double ball click. already selected. ', bs.byx)} // повторный клик на выбранный шар. спецэфект?
     else{
         if(selectedBallBS) selectedBallBS.className = selectedBallBS.className.mod('selected', null)
-        bs.className = bs.className.mod('selected', 0)
+        bs.className = bs.className.mod('selected', null).mod('selected', '')
         selectedBallBS = bs // console.log('new ball selected at: ', bs.byx)
     }
 
