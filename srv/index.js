@@ -8,15 +8,16 @@ function getRq(url) {
         method: 'GET',
         headers: headers
     }).then(response => {
-        if (response.ok) {
-            console.log('response:', response.toString())
-            return response.json() }
+        //if (response.ok) {
+            console.log('response:', response.body.toString())
+            return response.body
+        //}
 
-        return response.json().then(error => {
+/*        return response.body.then(error => {
             const e = new Error('Some error')
             e.data = error
             throw e
-        })
+        })*/
     })
 }
 
