@@ -8,7 +8,9 @@ function getRq(url) {
         method: 'GET',
         headers: headers
     }).then(response => {
-        if (response.ok) { return response.json() }
+        if (response.ok) {
+            console.log('response:', response.toString())
+            return response.json() }
 
         return response.json().then(error => {
             const e = new Error('Some error')
